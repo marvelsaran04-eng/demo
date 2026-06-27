@@ -19,7 +19,7 @@ export default function Footer() {
           <h3 className="text-white font-bold mb-4">Services</h3>
           <ul className="space-y-3 text-sm">
             <li><a href="/domains" className="hover:text-white transition-colors">Domain Names</a></li>
-            <li><a href="#" className="hover:text-white transition-colors">Cloud Hosting</a></li>
+            <li><a href="/hosting" className="hover:text-white transition-colors">Cloud Hosting</a></li>
             <li><a href="#" className="hover:text-white transition-colors">Business Email</a></li>
             <li><a href="#" className="hover:text-white transition-colors">SSL Certificates</a></li>
           </ul>

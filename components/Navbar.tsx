@@ -67,28 +67,28 @@ const navCategories: NavCategory[] = [
   },
   {
     name: "Hosting",
-    href: "#hosting",
+    href: "/hosting",
     tagline: "Infrastructure engineered for sub-50ms global response.",
     items: [
       {
         title: "Edge Compute Nodes",
         description:
           "Deploy workloads across 320+ PoPs so inference and APIs execute milliseconds from every user on earth.",
-        href: "#hosting-edge",
+        href: "/hosting",
         icon: Zap,
       },
       {
         title: "Serverless Functions",
         description:
           "Cold starts under 12ms with auto-scaling to 100K concurrent executions—pay only for compute you consume.",
-        href: "#hosting-serverless",
+        href: "/hosting",
         icon: Rocket,
       },
       {
         title: "Managed Autonomous VPS",
         description:
           "Self-healing virtual machines with AI-driven patching, NVMe storage, and 10 Gbps uplinks out of the box.",
-        href: "#hosting-vps",
+        href: "/hosting",
         icon: Server,
       },
     ],
