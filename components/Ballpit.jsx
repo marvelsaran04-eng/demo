@@ -731,24 +731,28 @@ const Ballpit = ({ className = '', followCursor = true, ...props }) => {
   useEffect(() => {
     if (typeof window === 'undefined' || typeof document === 'undefined') return;
 
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+    let initTimeout;
 
-    const glCheck = canvas.getContext('webgl2') || canvas.getContext('webgl');
-    if (!glCheck) {
-      console.warn("WebGL context not ready or unavailable on this canvas frame yet.");
-      return;
-    }
+    // Delay initialization slightly to let React finish DOM painting
+    initTimeout = setTimeout(() => {
+      const canvas = canvasRef.current;
+      if (!canvas) return; // Abort if React unmounted the canvas during the delay
 
-    const initTimeout = setTimeout(() => {
+      // Check for WebGL context INSIDE the timeout, right before Three.js needs it
+      const glCheck = canvas.getContext('webgl2') || canvas.getContext('webgl');
+      if (!glCheck) {
+        console.warn("WebGL context not ready or unavailable on this canvas frame yet.");
+        return;
+      }
+
       try {
-        if (!spheresInstanceRef.current && canvasRef.current) {
-          spheresInstanceRef.current = createBallpit(canvasRef.current, { followCursor, ...props });
+        if (!spheresInstanceRef.current) {
+          spheresInstanceRef.current = createBallpit(canvas, { followCursor, ...props });
         }
       } catch (error) {
         console.error("Failed to initialize WebGL Ballpit:", error);
       }
-    }, 50);
+    }, 100); // Increased to 100ms for extra safety during HMR reloads
 
     return () => {
       clearTimeout(initTimeout);
@@ -757,7 +761,7 @@ const Ballpit = ({ className = '', followCursor = true, ...props }) => {
         spheresInstanceRef.current = null;
       }
     };
-  }, []);
+  }, []); // Run once on mount
 
   return (
     <canvas 
