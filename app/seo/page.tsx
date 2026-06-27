@@ -6,6 +6,7 @@ import { Activity, BrainCircuit, Link2, Radar, ScanSearch, TrendingUp } from "lu
 const featureCards = [
   {
     title: "Autonomous Keyword Clustering",
+    id: "seo-audits",
     description:
       "Group live queries by search intent, funnel stage, and entity overlap so every brief targets a rankable topic graph.",
     icon: BrainCircuit,
@@ -13,6 +14,7 @@ const featureCards = [
   },
   {
     title: "Real-Time Core Web Vitals Tracking",
+    id: "seo-serp",
     description:
       "Monitor LCP, INP, CLS, and edge latency in the same workspace that prioritizes fixes by revenue impact.",
     icon: Activity,
@@ -20,6 +22,7 @@ const featureCards = [
   },
   {
     title: "AI Backlink Opportunity Mapping",
+    id: "seo-backlinks",
     description:
       "Surface partner mentions, competitor link gaps, and high-authority outreach targets ranked by topical trust.",
     icon: Link2,
@@ -243,9 +246,10 @@ export default function SeoPage() {
             {featureCards.map((feature) => (
               <motion.div
                 key={feature.title}
+                id={feature.id}
                 variants={rippleVariants}
                 whileHover={{ y: -6, transition: { duration: 0.2 } }}
-                className="relative overflow-hidden rounded-3xl border border-zinc-200 bg-white p-8 shadow-sm transition-shadow hover:shadow-xl"
+                className="relative scroll-mt-28 overflow-hidden rounded-3xl border border-zinc-200 bg-white p-8 shadow-sm transition-shadow hover:shadow-xl"
               >
                 <div className={`mb-6 inline-flex rounded-2xl bg-gradient-to-br ${feature.accent} p-3 text-white shadow-md`}>
                   <feature.icon size={24} />
@@ -272,7 +276,7 @@ export default function SeoPage() {
               </p>
             </motion.div>
 
-            <motion.div variants={rippleVariants} className="rounded-3xl border border-zinc-200 bg-zinc-950 p-8 shadow-xl">
+            <motion.div id="seo-optimizer" variants={rippleVariants} className="scroll-mt-28 rounded-3xl border border-zinc-200 bg-zinc-950 p-8 shadow-xl">
               <p className="mb-3 text-sm font-bold uppercase text-cyan-300">Next best action</p>
               <h3 className="mb-4 text-3xl font-black text-white">Publish the cluster, fix INP, win three links.</h3>
               <p className="max-w-2xl text-sm font-medium leading-relaxed text-zinc-300 md:text-base">

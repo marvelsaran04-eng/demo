@@ -95,56 +95,56 @@ const navCategories: NavCategory[] = [
   },
   {
     name: "Email",
-    href: "#email",
+    href: "/email",
     tagline: "Enterprise-grade mail built for teams that ship fast.",
     items: [
       {
         title: "AI-Powered Inbox Intelligence",
         description:
           "Smart triage, auto-drafted replies, and sentiment routing keep high-priority threads at the top of every queue.",
-        href: "#email-ai-inbox",
+        href: "/email#email-ai-inbox",
         icon: MailPlus,
       },
       {
         title: "Zero-Trust Encrypted Relay",
         description:
           "End-to-end TLS with per-message encryption keys and DMARC/SPF/DKIM compliance enforced automatically.",
-        href: "#email-encryption",
+        href: "/email#email-encryption",
         icon: ShieldCheck,
       },
       {
         title: "Branded Workspace Domains",
         description:
           "Provision unlimited @yourdomain.com aliases with SSO, shared calendars, and 99.99% deliverability SLA.",
-        href: "#email-workspace",
+        href: "/email#email-workspace",
         icon: AtSign,
       },
     ],
   },
   {
     name: "SEO",
-    href: "#seo",
+    href: "/seo",
     tagline: "Rank faster with data pipelines trained on live SERP signals.",
     items: [
       {
         title: "Semantic Core Audits",
         description:
           "Deep NLP scans map entity gaps against top-ranking competitors and surface actionable content briefs.",
-        href: "#seo-audits",
+        href: "/seo#seo-audits",
         icon: ScanSearch,
       },
       {
         title: "Real-Time SERP Intelligence",
         description:
           "Track keyword volatility, featured-snippet shifts, and AI Overview citations across 190 markets daily.",
-        href: "#seo-serp",
+        href: "/seo#seo-serp",
         icon: TrendingUp,
       },
       {
         title: "Autonomous Content Optimizer",
         description:
           "AI rewrites meta tags, schema markup, and internal links on a schedule—without touching your CMS workflow.",
-        href: "#seo-optimizer",
+        href: "/seo#seo-optimizer",
         icon: Wand2,
       },
     ],
@@ -179,6 +179,7 @@ const itemVariants: Variants = {
 export default function Navbar() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const [logoError, setLogoError] = useState(false);
 
   const activeCategory = navCategories.find((cat) => cat.name === activeMenu);
@@ -251,10 +252,19 @@ export default function Navbar() {
 
         {/* CTA & mobile menu */}
         <div className="flex items-center gap-4">
-          <button className="hidden md:flex items-center gap-2 text-sm font-bold text-zinc-950 backdrop-blur-2xl bg-white/70 border border-black/5 px-5 py-2.5 rounded-full hover:bg-zinc-100 hover:border-black/10 transition-all active:scale-95">
-            Sign In
-          </button>
-          <button className="md:hidden p-2 text-zinc-950">
+          <Link
+            href="/signup"
+            className="hidden md:flex items-center gap-2 text-sm font-bold text-zinc-950 backdrop-blur-2xl bg-white/70 border border-black/5 px-5 py-2.5 rounded-full hover:bg-zinc-100 hover:border-black/10 transition-all active:scale-95"
+          >
+            Sign Up
+          </Link>
+          <button
+            type="button"
+            aria-label="Toggle navigation menu"
+            aria-expanded={mobileOpen}
+            onClick={() => setMobileOpen((open) => !open)}
+            className="md:hidden p-2 text-zinc-950"
+          >
             <Menu size={24} />
           </button>
         </div>
@@ -332,6 +342,60 @@ export default function Navbar() {
                   <ArrowUpRight size={12} className="text-zinc-950" />
                 </Link>
               </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Mobile menu */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            variants={menuVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            className="absolute left-0 right-0 top-full px-6 pt-3 md:hidden"
+          >
+            <div className="max-h-[calc(100vh-96px)] overflow-y-auto rounded-2xl border border-black/5 bg-white/80 p-3 shadow-[0_24px_64px_rgba(0,0,0,0.08)] backdrop-blur-2xl">
+              {navCategories.map((category) => (
+                <div key={category.name} className="border-b border-black/5 py-3 last:border-b-0">
+                  <Link
+                    href={category.href}
+                    onClick={() => setMobileOpen(false)}
+                    className="flex items-center justify-between rounded-xl px-4 py-3 text-sm font-black text-zinc-950 hover:bg-zinc-100/80 transition-colors"
+                  >
+                    {category.name}
+                    <ArrowUpRight size={16} className="text-zinc-500" />
+                  </Link>
+                  <div className="grid gap-1 px-2 pb-1">
+                    {category.items.map((item) => (
+                      <Link
+                        key={item.title}
+                        href={item.href}
+                        onClick={() => setMobileOpen(false)}
+                        className="flex gap-3 rounded-xl px-3 py-3 hover:bg-zinc-100/80 transition-colors"
+                      >
+                        <div className="shrink-0 p-2 rounded-xl bg-zinc-100 border border-black/5 text-zinc-950">
+                          <item.icon size={18} strokeWidth={2} />
+                        </div>
+                        <div>
+                          <p className="text-sm font-bold text-zinc-950">{item.title}</p>
+                          <p className="text-xs leading-relaxed text-zinc-600">{item.description}</p>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ))}
+              <Link
+                href="/signup"
+                onClick={() => setMobileOpen(false)}
+                className="mt-3 flex items-center justify-center gap-2 rounded-full border border-black/5 bg-zinc-950 px-5 py-3 text-sm font-bold text-white shadow-sm transition-all active:scale-95"
+              >
+                Sign Up
+                <ArrowUpRight size={16} />
+              </Link>
             </div>
           </motion.div>
         )}

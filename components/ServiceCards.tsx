@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion, Variants } from "framer-motion";
 import { Server, Mail, LineChart, Globe } from "lucide-react";
 
@@ -11,6 +12,7 @@ const services = [
     icon: Globe,
     color: "text-blue-500",
     bg: "bg-blue-50",
+    href: "/domains",
   },
   {
     title: "Cloud Hosting",
@@ -18,6 +20,7 @@ const services = [
     icon: Server,
     color: "text-purple-500",
     bg: "bg-purple-50",
+    href: "/hosting",
   },
   {
     title: "Custom Email",
@@ -25,6 +28,7 @@ const services = [
     icon: Mail,
     color: "text-pink-500",
     bg: "bg-pink-50",
+    href: "/email",
   },
   {
     title: "SEO Tools",
@@ -32,6 +36,7 @@ const services = [
     icon: LineChart,
     color: "text-emerald-500",
     bg: "bg-emerald-50",
+    href: "/seo",
   },
 ];
 
@@ -58,9 +63,9 @@ export default function ServiceCards() {
       viewport={{ once: true, margin: "-100px" }} 
       className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full"
     >
-      {services.map((service, index) => (
+      {services.map((service) => (
+        <Link key={service.title} href={service.href} className="block h-full">
         <motion.div 
-          key={index}
           variants={cardVariants}
           // 2. Moved shadow animation into Framer Motion to prevent jitter
           whileHover={{ 
@@ -69,7 +74,7 @@ export default function ServiceCards() {
             transition: { duration: 0.2 } 
           }}
           // 3. Removed 'hover:shadow-xl' and 'transition-shadow' from className
-          className="bg-white p-8 rounded-3xl border border-zinc-100 shadow-sm cursor-pointer group flex flex-col items-start text-left"
+          className="h-full bg-white p-8 rounded-3xl border border-zinc-100 shadow-sm cursor-pointer group flex flex-col items-start text-left"
         >
           {/* Icon Wrapper */}
           <div className={`p-4 rounded-2xl ${service.bg} ${service.color} mb-6 transition-transform group-hover:scale-110 duration-300`}>
@@ -87,6 +92,7 @@ export default function ServiceCards() {
             <span className="group-hover:translate-x-1 transition-transform">→</span>
           </div>
         </motion.div>
+        </Link>
       ))}
     </motion.div>
   );

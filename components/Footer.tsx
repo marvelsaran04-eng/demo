@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Footer() {
   return (
     <footer className="bg-zinc-950 text-zinc-400 py-12 px-6 border-t border-zinc-800">
@@ -18,10 +20,10 @@ export default function Footer() {
         <div>
           <h3 className="text-white font-bold mb-4">Services</h3>
           <ul className="space-y-3 text-sm">
-            <li><a href="/domains" className="hover:text-white transition-colors">Domain Names</a></li>
-            <li><a href="/hosting" className="hover:text-white transition-colors">Cloud Hosting</a></li>
-            <li><a href="#" className="hover:text-white transition-colors">Business Email</a></li>
-            <li><a href="#" className="hover:text-white transition-colors">SSL Certificates</a></li>
+            <li><Link href="/domains" className="hover:text-white transition-colors">Domain Names</Link></li>
+            <li><Link href="/hosting" className="hover:text-white transition-colors">Cloud Hosting</Link></li>
+            <li><Link href="/email" className="hover:text-white transition-colors">Business Email</Link></li>
+            <li><Link href="/seo" className="hover:text-white transition-colors">SEO Tools</Link></li>
           </ul>
         </div>
 
@@ -29,10 +31,10 @@ export default function Footer() {
         <div>
           <h3 className="text-white font-bold mb-4">Company</h3>
           <ul className="space-y-3 text-sm">
-            <li><a href="#" className="hover:text-white transition-colors">About Us</a></li>
-            <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
-            <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
-            <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
+            <li><span className="text-zinc-400">About Us</span></li>
+            <li><span className="text-zinc-400">Careers</span></li>
+            <li><span className="text-zinc-400">Blog</span></li>
+            <li><span className="text-zinc-400">Contact</span></li>
           </ul>
         </div>
 
@@ -40,9 +42,9 @@ export default function Footer() {
         <div>
           <h3 className="text-white font-bold mb-4">Support</h3>
           <ul className="space-y-3 text-sm">
-            <li><a href="#" className="hover:text-white transition-colors">Help Center</a></li>
-            <li><a href="#" className="hover:text-white transition-colors">System Status</a></li>
-            <li><a href="#" className="hover:text-white transition-colors">support@shritech.com</a></li>
+            <li><span className="text-zinc-400">Help Center</span></li>
+            <li><span className="text-zinc-400">System Status</span></li>
+            <li><a href="mailto:support@shritech.com" className="hover:text-white transition-colors">support@shritech.com</a></li>
           </ul>
         </div>
 

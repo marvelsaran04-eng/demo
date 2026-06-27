@@ -38,6 +38,7 @@ const emailRows = [
 const features = [
   {
     title: "Fully Encrypted SMTP",
+    id: "email-encryption",
     description:
       "Every relay is wrapped in enforced TLS, rotating credentials, and message-level policy checks before mail leaves your domain.",
     icon: LockKeyhole,
@@ -45,6 +46,7 @@ const features = [
   },
   {
     title: "Catch-All Aliases",
+    id: "email-workspace",
     description:
       "Capture every role address, campaign reply, and investor intro without creating inbox clutter or losing brand consistency.",
     icon: AtSign,
@@ -52,6 +54,7 @@ const features = [
   },
   {
     title: "DKIM/SPF 1-Click Setup",
+    id: "email-dkim",
     description:
       "Publish DNS records, validate alignment, and keep deliverability protected with guided checks that finish in seconds.",
     icon: KeyRound,
@@ -132,7 +135,7 @@ export default function EmailPage() {
             </motion.div>
           </div>
 
-          <motion.div variants={rippleVariants} className="mx-auto w-full max-w-2xl">
+          <motion.div id="email-ai-inbox" variants={rippleVariants} className="mx-auto w-full max-w-2xl scroll-mt-28">
             <div className="relative rounded-3xl border border-white/60 bg-white/55 p-4 shadow-[0_24px_80px_rgba(59,130,246,0.18)] backdrop-blur-2xl">
               <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-white/70 via-cyan-50/60 to-violet-50/70" />
               <div className="relative overflow-hidden rounded-2xl border border-white/70 bg-white/70 shadow-sm">
@@ -246,9 +249,10 @@ export default function EmailPage() {
             {features.map((feature) => (
               <motion.div
                 key={feature.title}
+                id={feature.id}
                 variants={rippleVariants}
                 whileHover={{ y: -6, transition: { duration: 0.2 } }}
-                className="group relative overflow-hidden rounded-3xl border border-zinc-200 bg-white p-8 shadow-sm transition-shadow hover:shadow-xl"
+                className="group relative scroll-mt-28 overflow-hidden rounded-3xl border border-zinc-200 bg-white p-8 shadow-sm transition-shadow hover:shadow-xl"
               >
                 <div className={`mb-6 inline-flex rounded-2xl bg-gradient-to-br ${feature.accent} p-3 text-white shadow-md`}>
                   <feature.icon size={24} />
