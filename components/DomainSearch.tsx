@@ -1,9 +1,41 @@
 "use client";
-import { useState } from "react";
+import { useRef, useState, type ReactNode, type MouseEvent } from "react";
 import { motion } from "framer-motion";
 import { Search } from "lucide-react";
 
-export default function DomainSearch() {
+type DomainSearchProps = {
+  magneticButton?: boolean;
+};
+
+function MagneticButton({ children }: { children: ReactNode }) {
+  const ref = useRef<HTMLButtonElement>(null);
+  const [offset, setOffset] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e: MouseEvent<HTMLButtonElement>) => {
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    const x = (e.clientX - rect.left - rect.width / 2) * 0.35;
+    const y = (e.clientY - rect.top - rect.height / 2) * 0.35;
+    setOffset({ x, y });
+  };
+
+  const handleMouseLeave = () => setOffset({ x: 0, y: 0 });
+
+  return (
+    <motion.button
+      ref={ref}
+      animate={{ x: offset.x, y: offset.y }}
+      transition={{ type: "spring", stiffness: 180, damping: 18, mass: 0.6 }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="bg-zinc-900 text-white font-bold px-8 py-4 rounded-full hover:bg-blue-600 transition-colors active:scale-95 shadow-lg"
+    >
+      {children}
+    </motion.button>
+  );
+}
+
+export default function DomainSearch({ magneticButton = false }: DomainSearchProps) {
   const [isFocused, setIsFocused] = useState(false);
 
   return (
@@ -38,9 +70,13 @@ export default function DomainSearch() {
           <option>.tech</option>
           <option>.net</option>
         </select>
-        <button className="bg-zinc-900 text-white font-bold px-8 py-4 rounded-full hover:bg-blue-600 transition-colors active:scale-95 shadow-lg">
-          Search
-        </button>
+        {magneticButton ? (
+          <MagneticButton>Search</MagneticButton>
+        ) : (
+          <button className="bg-zinc-900 text-white font-bold px-8 py-4 rounded-full hover:bg-blue-600 transition-colors active:scale-95 shadow-lg">
+            Search
+          </button>
+        )}
       </motion.div>
     </motion.div>
   );
