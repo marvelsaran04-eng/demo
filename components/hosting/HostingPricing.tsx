@@ -92,7 +92,7 @@ export default function HostingPricing() {
           />
 
           <div
-            className={`relative h-full flex flex-col rounded-3xl backdrop-blur-2xl bg-white/70 border border-white/40 p-8 shadow-lg ${
+            className={`relative h-full flex flex-col rounded-3xl backdrop-blur-2xl bg-white/70 border border-white/40 p-6 md:p-8 shadow-lg ${
               tier.popular ? "ring-2 ring-violet-500/20" : ""
             }`}
             style={{ boxShadow: `0 24px 48px -12px ${tier.glowColor}` }}

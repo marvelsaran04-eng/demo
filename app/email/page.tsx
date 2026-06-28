@@ -219,19 +219,19 @@ export default function EmailPage() {
         </motion.div>
       </section>
 
-      <section className="bg-zinc-50 px-6 py-24 md:px-12 md:py-32">
+      <section className="bg-zinc-50 px-6 py-16 md:py-24 lg:py-32 md:px-12">
         <div className="mx-auto max-w-6xl">
           <motion.div
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-80px" }}
-            className="mb-14 text-center"
+            className="mb-10 md:mb-14 text-center"
           >
             <motion.span variants={rippleVariants} className="mb-4 inline-block text-xs font-bold uppercase text-zinc-500">
               Mail Infrastructure
             </motion.span>
-            <motion.h2 variants={rippleVariants} className="mb-4 text-4xl font-black text-zinc-950 md:text-5xl">
+            <motion.h2 variants={rippleVariants} className="mb-3 md:mb-4 text-4xl font-black text-zinc-950 md:text-5xl">
               Premium email without the admin maze
             </motion.h2>
             <motion.p variants={rippleVariants} className="mx-auto max-w-2xl text-lg font-medium text-zinc-600">
@@ -252,7 +252,7 @@ export default function EmailPage() {
                 id={feature.id}
                 variants={rippleVariants}
                 whileHover={{ y: -6, transition: { duration: 0.2 } }}
-                className="group relative scroll-mt-28 overflow-hidden rounded-3xl border border-zinc-200 bg-white p-8 shadow-sm transition-shadow hover:shadow-xl"
+                className="group relative scroll-mt-28 overflow-hidden rounded-3xl border border-zinc-200 bg-white p-6 md:p-8 shadow-sm transition-shadow hover:shadow-xl"
               >
                 <div className={`mb-6 inline-flex rounded-2xl bg-gradient-to-br ${feature.accent} p-3 text-white shadow-md`}>
                   <feature.icon size={24} />

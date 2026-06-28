@@ -73,7 +73,7 @@ export default function DomainBenefitsBento() {
           key={benefit.title}
           variants={itemVariants}
           whileHover={{ y: -4, transition: { duration: 0.2 } }}
-          className={`group relative overflow-hidden rounded-3xl border border-zinc-200 bg-white p-8 shadow-sm hover:shadow-lg transition-shadow ${benefit.span}`}
+          className={`group relative overflow-hidden rounded-3xl border border-zinc-200 bg-white p-6 md:p-8 shadow-sm hover:shadow-lg transition-shadow ${benefit.span}`}
         >
           <div
             className={`absolute -top-12 -right-12 w-40 h-40 rounded-full bg-gradient-to-br ${benefit.accent} opacity-10 blur-2xl group-hover:opacity-20 transition-opacity`}

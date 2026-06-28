@@ -6,6 +6,7 @@ import Link from "next/link";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import {
   Menu,
+  X,
   Sparkles,
   Gem,
   Globe2,
@@ -260,12 +261,12 @@ export default function Navbar() {
           </Link>
           <button
             type="button"
-            aria-label="Toggle navigation menu"
+            aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
             aria-expanded={mobileOpen}
             onClick={() => setMobileOpen((open) => !open)}
-            className="md:hidden p-2 text-zinc-950"
+            className="md:hidden p-2.5 text-zinc-950 rounded-xl hover:bg-zinc-100/80 transition-colors"
           >
-            <Menu size={24} />
+            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
@@ -347,56 +348,89 @@ export default function Navbar() {
         )}
       </AnimatePresence>
 
-      {/* Mobile menu */}
+      {/* Mobile menu - full-screen bottom sheet */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            variants={menuVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            className="absolute left-0 right-0 top-full px-6 pt-3 md:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
+            className="fixed inset-0 top-20 z-40 md:hidden"
           >
-            <div className="max-h-[calc(100vh-96px)] overflow-y-auto rounded-2xl border border-black/5 bg-white/80 p-3 shadow-[0_24px_64px_rgba(0,0,0,0.08)] backdrop-blur-2xl">
-              {navCategories.map((category) => (
-                <div key={category.name} className="border-b border-black/5 py-3 last:border-b-0">
-                  <Link
-                    href={category.href}
-                    onClick={() => setMobileOpen(false)}
-                    className="flex items-center justify-between rounded-xl px-4 py-3 text-sm font-black text-zinc-950 hover:bg-zinc-100/80 transition-colors"
-                  >
-                    {category.name}
-                    <ArrowUpRight size={16} className="text-zinc-500" />
-                  </Link>
-                  <div className="grid gap-1 px-2 pb-1">
-                    {category.items.map((item) => (
-                      <Link
-                        key={item.title}
-                        href={item.href}
-                        onClick={() => setMobileOpen(false)}
-                        className="flex gap-3 rounded-xl px-3 py-3 hover:bg-zinc-100/80 transition-colors"
-                      >
-                        <div className="shrink-0 p-2 rounded-xl bg-zinc-100 border border-black/5 text-zinc-950">
-                          <item.icon size={18} strokeWidth={2} />
-                        </div>
-                        <div>
-                          <p className="text-sm font-bold text-zinc-950">{item.title}</p>
-                          <p className="text-xs leading-relaxed text-zinc-600">{item.description}</p>
-                        </div>
-                      </Link>
-                    ))}
+            {/* Backdrop */}
+            <div
+              className="absolute inset-0 bg-black/20 backdrop-blur-sm"
+              onClick={() => setMobileOpen(false)}
+            />
+
+            {/* Bottom sheet panel */}
+            <motion.div
+              initial={{ y: '100%' }}
+              animate={{ y: 0 }}
+              exit={{ y: '100%' }}
+              transition={{ type: 'spring', damping: 28, stiffness: 260 }}
+              className="absolute bottom-0 left-0 right-0 max-h-[75vh] rounded-t-3xl bg-white/95 backdrop-blur-2xl border-t border-black/5 shadow-[0_-8px_32px_rgba(0,0,0,0.08)] overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Handle bar */}
+              <div className="flex justify-center pt-3 pb-1 sticky top-0 bg-white/95 backdrop-blur-2xl z-10">
+                <div className="w-10 h-1.5 rounded-full bg-zinc-300" />
+              </div>
+
+              {/* Close button */}
+              <div className="flex justify-end px-4 pb-1 sticky top-2 bg-white/95 backdrop-blur-2xl z-10">
+                <button
+                  type="button"
+                  aria-label="Close menu"
+                  onClick={() => setMobileOpen(false)}
+                  className="p-2 rounded-full hover:bg-zinc-100 transition-colors -mt-8"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+
+              <div className="px-4 pb-8">
+                {navCategories.map((category) => (
+                  <div key={category.name} className="border-b border-black/5 py-2 last:border-b-0">
+                    <Link
+                      href={category.href}
+                      onClick={() => setMobileOpen(false)}
+                      className="flex items-center justify-between rounded-xl px-4 py-3.5 text-sm font-black text-zinc-950 hover:bg-zinc-100/80 transition-colors active:bg-zinc-100"
+                    >
+                      {category.name}
+                      <ArrowUpRight size={16} className="text-zinc-500 shrink-0" />
+                    </Link>
+                    <div className="grid gap-1 px-2 pb-1">
+                      {category.items.map((item) => (
+                        <Link
+                          key={item.title}
+                          href={item.href}
+                          onClick={() => setMobileOpen(false)}
+                          className="flex gap-3 rounded-xl px-3 py-3.5 hover:bg-zinc-100/80 transition-colors active:bg-zinc-100"
+                        >
+                          <div className="shrink-0 p-2 rounded-xl bg-zinc-100 border border-black/5 text-zinc-950">
+                            <item.icon size={18} strokeWidth={2} />
+                          </div>
+                          <div className="min-w-0">
+                            <p className="text-sm font-bold text-zinc-950">{item.title}</p>
+                            <p className="text-xs leading-relaxed text-zinc-600 mt-0.5">{item.description}</p>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ))}
-              <Link
-                href="/signup"
-                onClick={() => setMobileOpen(false)}
-                className="mt-3 flex items-center justify-center gap-2 rounded-full border border-black/5 bg-zinc-950 px-5 py-3 text-sm font-bold text-white shadow-sm transition-all active:scale-95"
-              >
-                Sign Up
-                <ArrowUpRight size={16} />
-              </Link>
-            </div>
+                ))}
+                <Link
+                  href="/signup"
+                  onClick={() => setMobileOpen(false)}
+                  className="mt-4 flex items-center justify-center gap-2 rounded-full bg-zinc-950 px-5 py-4 text-sm font-bold text-white shadow-sm transition-all active:scale-95 hover:bg-zinc-800"
+                >
+                  Sign Up
+                  <ArrowUpRight size={16} />
+                </Link>
+              </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

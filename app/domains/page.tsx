@@ -58,19 +58,19 @@ export default function DomainsPage() {
       </section>
 
       {/* Bento benefits */}
-      <section className="relative z-20 py-24 md:py-32 px-6 md:px-12 bg-zinc-50 border-t border-zinc-100">
+      <section className="relative z-20 py-16 md:py-24 lg:py-32 px-6 md:px-12 bg-zinc-50 border-t border-zinc-100">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.7 }}
-            className="text-center mb-14 md:mb-16"
+            className="text-center mb-10 md:mb-16"
           >
             <span className="inline-block text-xs font-bold uppercase tracking-widest text-zinc-500 mb-4">
               Infrastructure Included
             </span>
-            <h2 className="text-4xl md:text-5xl font-black text-zinc-950 tracking-tight mb-4">
+            <h2 className="text-4xl md:text-5xl font-black text-zinc-950 tracking-tight mb-3 md:mb-4">
               Every domain ships battle-ready
             </h2>
             <p className="text-zinc-600 text-lg max-w-2xl mx-auto font-medium">

@@ -74,10 +74,10 @@ export default function ServiceCards() {
             transition: { duration: 0.2 } 
           }}
           // 3. Removed 'hover:shadow-xl' and 'transition-shadow' from className
-          className="h-full bg-white p-8 rounded-3xl border border-zinc-100 shadow-sm cursor-pointer group flex flex-col items-start text-left"
+          className="h-full bg-white p-6 md:p-8 rounded-3xl border border-zinc-100 shadow-sm cursor-pointer group flex flex-col items-start text-left"
         >
           {/* Icon Wrapper */}
-          <div className={`p-4 rounded-2xl ${service.bg} ${service.color} mb-6 transition-transform group-hover:scale-110 duration-300`}>
+          <div className={`p-3 md:p-4 rounded-2xl ${service.bg} ${service.color} mb-4 md:mb-6 transition-transform group-hover:scale-110 duration-300`}>
             <service.icon size={32} strokeWidth={2} />
           </div>
           

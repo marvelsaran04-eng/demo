@@ -1,5 +1,6 @@
 "use client"; 
 
+import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
 import DomainSearch from '@/components/DomainSearch';
@@ -9,21 +10,27 @@ import ServiceCards from '@/components/ServiceCards';
 const Ballpit = dynamic(() => import('@/components/Ballpit'), { ssr: false });
 
 export default function Home() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 768);
+  }, []);
+
   return (
     <main className="relative min-h-screen bg-white overflow-x-hidden pt-20">
       
       {/* 1. HERO CONTAINER */}
-      <section className="relative w-full h-[calc(100vh-80px)] flex items-center justify-center overflow-hidden">
+      <section className="relative w-full min-h-[100svh] sm:h-[calc(100vh-80px)] flex items-center justify-center overflow-hidden">
         
         {/* Ballpit Background Layer - COLORS UNTOUCHED */}
         <div className="absolute inset-0 z-0">
           <Ballpit
-            count={130}                     
-            gravity={0.4}                   
-            friction={0.995}                
-            wallBounce={0.85}               
-            followCursor={true}             
-            colors={[0xff007f, 0x00f2fe, 0x4facfe]} 
+            count={isMobile ? 60 : 130}
+            gravity={0.4}
+            friction={0.995}
+            wallBounce={0.85}
+            followCursor={!isMobile}
+            colors={[0xff007f, 0x00f2fe, 0x4facfe]}
           />
         </div>
 
@@ -56,14 +63,14 @@ export default function Home() {
       </section>
 
       {/* 2. NEXT SECTIONS */}
-      <section className="relative z-20 bg-zinc-50 min-h-screen py-24 px-6 md:px-12 border-t border-zinc-200">
+      <section className="relative z-20 bg-zinc-50 min-h-screen py-16 md:py-24 px-6 md:px-12 border-t border-zinc-200">
         <div className="max-w-7xl mx-auto text-center">
           
           {/* Section Headers */}
           <h2 className="text-4xl md:text-5xl font-black text-zinc-900 mb-6 tracking-tight">
             Everything you need to scale
           </h2>
-          <p className="text-zinc-500 max-w-2xl mx-auto mb-16 text-lg md:text-xl font-medium">
+          <p className="text-zinc-500 max-w-2xl mx-auto mb-12 md:mb-16 text-lg md:text-xl font-medium">
             From your first domain to global server loads, we provide the infrastructure and tools to get you there.
           </p>
           

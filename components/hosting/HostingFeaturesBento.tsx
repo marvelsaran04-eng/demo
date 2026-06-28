@@ -113,7 +113,7 @@ export default function HostingFeaturesBento() {
             className={feature.span}
           >
             <TiltCell glow={feature.glow}>
-              <div className="group relative h-full overflow-hidden rounded-3xl border border-black/5 bg-white/70 backdrop-blur-2xl p-8 shadow-sm hover:shadow-xl transition-shadow duration-300">
+              <div className="group relative h-full overflow-hidden rounded-3xl border border-black/5 bg-white/70 backdrop-blur-2xl p-6 md:p-8 shadow-sm hover:shadow-xl transition-shadow duration-300">
                 <div
                   className={`absolute -top-16 -right-16 w-48 h-48 rounded-full bg-gradient-to-br ${feature.accent} opacity-10 blur-3xl group-hover:opacity-20 transition-opacity`}
                 />

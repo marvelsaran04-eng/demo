@@ -327,9 +327,17 @@ function L() {
   }
 }
 
+function isCanvasTouch(e) {
+  for (const [elem] of b) {
+    if (elem === e.target || elem.contains(e.target) || e.target.contains(elem)) {
+      return true;
+    }
+  }
+  return false;
+}
+
 function TouchStart(e) {
   if (e.touches.length > 0) {
-    e.preventDefault();
     A.x = e.touches[0].clientX;
     A.y = e.touches[0].clientY;
 
@@ -345,12 +353,12 @@ function TouchStart(e) {
         t.onMove(t);
       }
     }
+    if (isCanvasTouch(e)) e.preventDefault();
   }
 }
 
 function TouchMove(e) {
   if (e.touches.length > 0) {
-    e.preventDefault();
     A.x = e.touches[0].clientX;
     A.y = e.touches[0].clientY;
 
@@ -369,6 +377,7 @@ function TouchMove(e) {
         t.onMove(t);
       }
     }
+    if (isCanvasTouch(e)) e.preventDefault();
   }
 }
 
@@ -418,6 +427,9 @@ class W {
     this.center = new a();
     this.#R();
     this.setSizes();
+    // Mobile ambient impulse state
+    this._impulseTimer = 0;
+    this._impulseInterval = 2;
   }
   #R() {
     const { config: e, positionData: t } = this;
@@ -438,6 +450,25 @@ class W {
   }
   update(e) {
     const { config: t, center: i, positionData: s, sizeData: n, velocityData: o } = this;
+
+    // Mobile ambient: periodic random impulses to keep balls floating
+    if (t.isMobile) {
+      this._impulseTimer += e.delta;
+      if (this._impulseTimer >= this._impulseInterval) {
+        this._impulseTimer = 0;
+        this._impulseInterval = 1.5 + Math.random() * 1.5;
+        const numBalls = Math.max(1, Math.floor(t.count * 0.04));
+        for (let i = 0; i < numBalls; i++) {
+          const idx = 1 + Math.floor(Math.random() * (t.count - 1));
+          const base = 3 * idx;
+          const strength = 0.05 + Math.random() * 0.06;
+          o[base] += k(-strength, strength);
+          o[base + 1] += k(-strength, strength);
+          o[base + 2] += k(-strength, strength);
+        }
+      }
+    }
+
     let r = 0;
     if (t.controlSphere0) {
       r = 1;
@@ -668,29 +699,44 @@ function createBallpit(e, t = {}) {
   i.camera.lookAt(0, 0, 0);
   i.cameraMaxAspect = 1.5;
   i.resize();
+
+  const isMobile = t.isMobile === true;
+
+  // Mobile ambient physics profile
+  if (isMobile) {
+    t.gravity = 0;
+    t.friction = 0.998;
+    t.maxVelocity = 0.12;
+    t.followCursor = false;
+  }
+
   initialize(t);
   const n = new y();
   const o = new w(new a(0, 0, 1), 0);
   const r = new a();
   let c = false;
 
-  e.style.touchAction = 'none';
-  e.style.userSelect = 'none';
-  e.style.webkitUserSelect = 'none';
+  let h = null;
 
-  const h = S({
-    domElement: e,
-    onMove() {
-      n.setFromCamera(h.nPosition, i.camera);
-      i.camera.getWorldDirection(o.normal);
-      n.ray.intersectPlane(o, r);
-      s.physics.center.copy(r);
-      s.config.controlSphere0 = true;
-    },
-    onLeave() {
-      s.config.controlSphere0 = false;
-    }
-  });
+  if (!isMobile) {
+    e.style.touchAction = 'none';
+    e.style.userSelect = 'none';
+    e.style.webkitUserSelect = 'none';
+
+    h = S({
+      domElement: e,
+      onMove() {
+        n.setFromCamera(h.nPosition, i.camera);
+        i.camera.getWorldDirection(o.normal);
+        n.ray.intersectPlane(o, r);
+        s.physics.center.copy(r);
+        s.config.controlSphere0 = true;
+      },
+      onLeave() {
+        s.config.controlSphere0 = false;
+      }
+    });
+  }
   function initialize(e) {
     if (s) {
       i.clear();
@@ -718,7 +764,7 @@ function createBallpit(e, t = {}) {
       c = !c;
     },
     dispose() {
-      h.dispose();
+      if (h) h.dispose();
       i.dispose();
     }
   };
@@ -730,6 +776,8 @@ const Ballpit = ({ className = '', followCursor = true, ...props }) => {
 
   useEffect(() => {
     if (typeof window === 'undefined' || typeof document === 'undefined') return;
+
+    const isMobile = window.matchMedia('(pointer: coarse)').matches;
 
     let initTimeout;
 
@@ -747,7 +795,7 @@ const Ballpit = ({ className = '', followCursor = true, ...props }) => {
 
       try {
         if (!spheresInstanceRef.current) {
-          spheresInstanceRef.current = createBallpit(canvas, { followCursor, ...props });
+          spheresInstanceRef.current = createBallpit(canvas, { followCursor, isMobile, ...props });
         }
       } catch (error) {
         console.error("Failed to initialize WebGL Ballpit:", error);

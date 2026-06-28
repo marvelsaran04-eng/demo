@@ -144,10 +144,10 @@ export default function SignupPage() {
                 { label: "Uptime SLA", value: "99.99%", icon: ShieldCheck },
                 { label: "Key Rotation", value: "Auto", icon: LockKeyhole },
               ].map((item) => (
-                <div key={item.label} className="rounded-2xl bg-white/70 p-4">
-                  <item.icon size={18} className="mb-3 text-violet-500" />
-                  <p className="text-xl font-black text-zinc-950">{item.value}</p>
-                  <p className="mt-1 text-xs font-bold text-zinc-500">{item.label}</p>
+                <div key={item.label} className="rounded-2xl bg-white/70 p-3 md:p-4">
+                  <item.icon size={16} className="mb-2 md:mb-3 text-violet-500" />
+                  <p className="text-lg md:text-xl font-black text-zinc-950">{item.value}</p>
+                  <p className="mt-0.5 md:mt-1 text-xs font-bold text-zinc-500">{item.label}</p>
                 </div>
               ))}
             </motion.div>
