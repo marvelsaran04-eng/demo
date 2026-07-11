@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion, Variants } from "framer-motion";
-import { Server, Mail, LineChart, Globe } from "lucide-react";
+import { Server, Mail, Globe } from "lucide-react";
 
 // Data for your services
 const services = [
@@ -30,14 +30,15 @@ const services = [
     bg: "bg-pink-50",
     href: "/email",
   },
-  {
-    title: "SEO Tools",
-    description: "Climb the Google rankings with our built-in analytics and optimization suite.",
-    icon: LineChart,
-    color: "text-emerald-500",
-    bg: "bg-emerald-50",
-    href: "/seo",
-  },
+  // ─── SEO temporarily disabled ───
+  // {
+  //   title: "SEO Tools",
+  //   description: "Climb the Google rankings with our built-in analytics and optimization suite.",
+  //   icon: LineChart,
+  //   color: "text-emerald-500",
+  //   bg: "bg-emerald-50",
+  //   href: "/seo",
+  // },
 ];
 
 // 1. Fixed TypeScript issue by explicitly typing variants
@@ -61,7 +62,7 @@ export default function ServiceCards() {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-100px" }} 
-      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full"
+      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full"
     >
       {services.map((service) => (
         <Link key={service.title} href={service.href} className="block h-full">

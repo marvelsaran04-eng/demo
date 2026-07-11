@@ -7,7 +7,7 @@ import DomainSearch from '@/components/DomainSearch';
 import ServiceCards from '@/components/ServiceCards';
 
 // Dynamically load Ballpit with SSR disabled
-const Ballpit = dynamic(() => import('@/components/Ballpit'), { ssr: false });
+// const Ballpit = dynamic(() => import('@/components/Ballpit'), { ssr: false });
 
 export default function Home() {
   const [isMobile, setIsMobile] = useState(false);
@@ -23,7 +23,7 @@ export default function Home() {
       <section className="relative w-full min-h-[100svh] sm:h-[calc(100vh-80px)] flex items-center justify-center overflow-hidden">
         
         {/* Ballpit Background Layer - COLORS UNTOUCHED */}
-        <div className="absolute inset-0 z-0">
+        {/* <div className="absolute inset-0 z-0">
           <Ballpit
             count={isMobile ? 60 : 130}
             gravity={0.4}
@@ -32,7 +32,7 @@ export default function Home() {
             followCursor={!isMobile}
             colors={[0xff007f, 0x00f2fe, 0x4facfe]}
           />
-        </div>
+        </div> */}
 
         {/* Floating Animated Content */}
         <div className="relative z-10 text-center w-full px-6 pointer-events-none">
@@ -52,7 +52,7 @@ export default function Home() {
             </span>
             </h1>
             <p className="text-zinc-600 text-lg md:text-xl max-w-2xl mx-auto mb-8 font-medium drop-shadow-md">
-              Secure domains, lightning-fast hosting, and SEO tools built for modern creators. 
+              Secure domains, lightning-fast hosting, and email tools built for modern creators. 
             </p>
           </motion.div>
 

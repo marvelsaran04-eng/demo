@@ -16,9 +16,10 @@ import {
   MailPlus,
   ShieldCheck,
   AtSign,
-  ScanSearch,
-  TrendingUp,
-  Wand2,
+  // ScanSearch,
+  // TrendingUp,
+  // Wand2,
+  House,
   ArrowUpRight,
   type LucideIcon,
 } from "lucide-react";
@@ -122,34 +123,35 @@ const navCategories: NavCategory[] = [
       },
     ],
   },
-  {
-    name: "SEO",
-    href: "/seo",
-    tagline: "Rank faster with data pipelines trained on live SERP signals.",
-    items: [
-      {
-        title: "Semantic Core Audits",
-        description:
-          "Deep NLP scans map entity gaps against top-ranking competitors and surface actionable content briefs.",
-        href: "/seo#seo-audits",
-        icon: ScanSearch,
-      },
-      {
-        title: "Real-Time SERP Intelligence",
-        description:
-          "Track keyword volatility, featured-snippet shifts, and AI Overview citations across 190 markets daily.",
-        href: "/seo#seo-serp",
-        icon: TrendingUp,
-      },
-      {
-        title: "Autonomous Content Optimizer",
-        description:
-          "AI rewrites meta tags, schema markup, and internal links on a schedule—without touching your CMS workflow.",
-        href: "/seo#seo-optimizer",
-        icon: Wand2,
-      },
-    ],
-  },
+  // ─── SEO category temporarily disabled ───
+  // {
+  //   name: "SEO",
+  //   href: "/seo",
+  //   tagline: "Rank faster with data pipelines trained on live SERP signals.",
+  //   items: [
+  //     {
+  //       title: "Semantic Core Audits",
+  //       description:
+  //         "Deep NLP scans map entity gaps against top-ranking competitors and surface actionable content briefs.",
+  //       href: "/seo#seo-audits",
+  //       icon: ScanSearch,
+  //     },
+  //     {
+  //       title: "Real-Time SERP Intelligence",
+  //       description:
+  //         "Track keyword volatility, featured-snippet shifts, and AI Overview citations across 190 markets daily.",
+  //       href: "/seo#seo-serp",
+  //       icon: TrendingUp,
+  //     },
+  //     {
+  //       title: "Autonomous Content Optimizer",
+  //       description:
+  //         "AI rewrites meta tags, schema markup, and internal links on a schedule—without touching your CMS workflow.",
+  //       href: "/seo#seo-optimizer",
+  //       icon: Wand2,
+  //     },
+  //   ],
+  // },
 ];
 
 const menuVariants: Variants = {
@@ -221,6 +223,13 @@ export default function Navbar() {
 
         {/* Desktop nav triggers */}
         <div className="hidden md:flex items-center space-x-1">
+          <Link
+            href="/"
+            className="relative p-2 rounded-full cursor-pointer"
+            onMouseEnter={() => { setHoveredIndex(-1); setActiveMenu(null); }}
+          >
+            <House size={20} className="text-zinc-950" />
+          </Link>
           {navCategories.map((category, index) => (
             <Link
               key={category.name}
@@ -391,6 +400,14 @@ export default function Navbar() {
               </div>
 
               <div className="px-4 pb-8">
+                <Link
+                  href="/"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex items-center gap-3 rounded-xl px-4 py-3.5 text-sm font-black text-zinc-950 hover:bg-zinc-100/80 transition-colors active:bg-zinc-100"
+                >
+                  <House size={18} />
+                  Home
+                </Link>
                 {navCategories.map((category) => (
                   <div key={category.name} className="border-b border-black/5 py-2 last:border-b-0">
                     <Link

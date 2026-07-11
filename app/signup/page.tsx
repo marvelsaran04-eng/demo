@@ -7,7 +7,7 @@ import { ArrowRight, CheckCircle2, LockKeyhole, ServerCog, ShieldCheck, Sparkles
 const trustSignals = [
   "Edge deploys in under 60 seconds",
   "Encrypted workspace provisioning",
-  "Domains, hosting, email, and SEO in one control plane",
+  "Domains, hosting, and email in one control plane",
 ];
 
 const formFields = [

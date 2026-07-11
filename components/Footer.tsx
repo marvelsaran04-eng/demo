@@ -23,7 +23,7 @@ export default function Footer() {
             <li><Link href="/domains" className="hover:text-white transition-colors">Domain Names</Link></li>
             <li><Link href="/hosting" className="hover:text-white transition-colors">Cloud Hosting</Link></li>
             <li><Link href="/email" className="hover:text-white transition-colors">Business Email</Link></li>
-            <li><Link href="/seo" className="hover:text-white transition-colors">SEO Tools</Link></li>
+            {/* <li><Link href="/seo" className="hover:text-white transition-colors">SEO Tools</Link></li> */}
           </ul>
         </div>
 
